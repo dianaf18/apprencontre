@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        input:focus {
+            border-color: #007BFF;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #error-message {
+            color: red;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Inscription</h1>
+
+    <!-- Zone pour afficher les messages d'erreur -->
+    <div id="error-message"></div>
+
+    <form action="/signup" method="POST">
+        <label for="name">Nom :</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="email">Email :</label>
+        <input type="email" id="email" name="email" required title="Veuillez entrer une adresse email valide."><br>
+
+        <label for="password">Mot de passe :</label>
+        <input type="password" id="password" name="password" required minlength="8" placeholder="Au moins 8 caractères"><br>
+
+        <label for="confirm_password">Confirmez le mot de passe :</label>
+        <input type="password" id="confirm_password" name="confirm_password" required><br>
+
+        <label for="food_pref">Préférences alimentaires :</label>
+        <input type="text" id="food_pref" name="food_pref" required><br>
+
+        <label for="hobby">Hobby :</label>
+        <input type="text" id="hobby" name="hobby" required><br>
+
+        <button type="submit">S'inscrire</button>
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+        const form = document.querySelector('form');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirm_password');
+        const errorMessage = document.getElementById('error-message');
+
+        form.addEventListener('submit', (event) => {
+            // Réinitialiser les erreurs à chaque tentative
+            errorMessage.textContent = '';
+
+            // Vérifier si les mots de passe correspondent
+            if (password.value !== confirmPassword.value) {
+                event.preventDefault();
+                errorMessage.textContent = 'Les mots de passe ne correspondent pas.';
+                confirmPassword.focus();
+                return;
+            }
+
+            // Chiffrer le mot de passe avant de l'envoyer au serveur
+            password.value = CryptoJS.SHA256(password.value).toString();
+            confirmPassword.value = ''; // On ne soumet pas le champ de confirmation
+        });
+    </script>
+</body>
+</html>

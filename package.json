@@ -1,0 +1,26 @@
+{
+  "name": "rencontrerepas",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["inscription", "rencontre", "repas"],
+  "author": "Ton Nom",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "express": "^4.21.1",
+    "helmet": "^8.0.0",
+    "mongodb": "^6.11.0",
+    "mongoose": "^8.8.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "description": "Application web pour gérer les inscriptions et préférences pour le projet RencontreRepas."
+}
